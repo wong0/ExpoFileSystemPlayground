@@ -1,5 +1,5 @@
 import * as WebBrowser from 'expo-web-browser';
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Platform,  StyleSheet, TouchableOpacity } from 'react-native';
 import { startActivityAsync } from 'expo-intent-launcher';
 
@@ -36,7 +36,6 @@ async function testFilesystem() {
           });
         });
       }
-
     }
 
     getFreeSpace().then(freeDiskStorage => {
@@ -60,17 +59,17 @@ async function testFilesystem() {
 
     alert(`deleteAsync: ${ JSON.stringify(await FileSystem.deleteAsync(uri), null, 2) }`);
 
-    // moveAsync (https://docs.expo.dev/versions/latest/sdk/filesystem/#filesystemmoveasyncoptions)
-    // alert(`moveAsync: ${ JSON.stringify(await FileSystem.moveAsync('file://url/from', 'file://url/to'), null, 2) }`);
-
-    // copyAsync (https://docs.expo.dev/versions/latest/sdk/filesystem/#filesystemcopyasyncoptions)
-    // alert(`copyAsync: ${ JSON.stringify(await FileSystem.copyAsync('file://url/from', 'file://url/to'), null, 2) }`);
-    
     // makeDirectoryAsync (https://docs.expo.dev/versions/latest/sdk/filesystem/#filesystemmakedirectoryasyncfileuri-options)
     alert(`makeDirectoryAsync: ${ JSON.stringify(await FileSystem.makeDirectoryAsync(uri), null, 2) }`);
 
     // readDirectoryAsync (https://docs.expo.dev/versions/latest/sdk/filesystem/#filesystemreaddirectoryasyncfileuri)
     alert(`readDirectoryAsync: ${ JSON.stringify(await FileSystem.readDirectoryAsync(uri), null, 2) }`);
+    
+    // moveAsync (https://docs.expo.dev/versions/latest/sdk/filesystem/#filesystemmoveasyncoptions)
+    // alert(`moveAsync: ${ JSON.stringify(await FileSystem.moveAsync('file://url/from', 'file://url/to'), null, 2) }`);
+
+    // copyAsync (https://docs.expo.dev/versions/latest/sdk/filesystem/#filesystemcopyasyncoptions)
+    // alert(`copyAsync: ${ JSON.stringify(await FileSystem.copyAsync('file://url/from', 'file://url/to'), null, 2) }`);
     
 }
 
