@@ -52,7 +52,7 @@ async function testFilesystem() {
       FileSystem.documentDirectory + 'small.mp4'
     )
     
-    alert(`App downloaded ${await uri}`);
+    alert(`App downloaded ${await uri || "download failed"}`);
 
     // Get Info Async
     alert(`GetInfoAsync: ${ JSON.stringify(await FileSystem.getInfoAsync(uri), null, 2) }`);
@@ -74,7 +74,7 @@ async function testFilesystem() {
 }
 
 
-export default function  EditScreenInfo({ path }: { path: string }) {
+export default function  FileSystemInfo({ path }: { path: string }) {
   useEffect(() => {
     testFilesystem()
   }, []);
