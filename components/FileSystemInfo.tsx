@@ -1,10 +1,11 @@
 import * as WebBrowser from 'expo-web-browser';
 import { useEffect } from "react";
-import { Platform,  StyleSheet, TouchableOpacity } from 'react-native';
+import { Image, Platform, StyleSheet, TouchableOpacity } from 'react-native';
 import { startActivityAsync } from 'expo-intent-launcher';
 
 import * as FileSystem from 'expo-file-system';
 import { StorageAccessFramework } from 'expo-file-system';
+import { useAssets } from 'expo-asset';
 
 import Colors from '../constants/Colors';
 import { MonoText } from './StyledText';
@@ -52,7 +53,7 @@ async function testFilesystem() {
       FileSystem.documentDirectory + 'small.mp4'
     )
     
-    alert(`App downloaded ${await uri || "download failed"}`);
+    alert(`App downloaded ${uri || "download failed"}`);
 
     // Get Info Async
     alert(`GetInfoAsync: ${ JSON.stringify(await FileSystem.getInfoAsync(uri), null, 2) }`);
@@ -73,11 +74,14 @@ async function testFilesystem() {
     
 }
 
-
 export default function  FileSystemInfo({ path }: { path: string }) {
   useEffect(() => {
     testFilesystem()
   }, []);
+
+  // Update assets.
+  const [assets, error] = useAssets([require('../assets/images/icon.png'), require('../assets/images/favicon.png')]);
+  console.log('testFileSystemAsset: assets: ' + assets?.map(asset => `${JSON.stringify(asset, null, 2)}, `) + ' Error:', error);
 
   return (
     <View>
@@ -104,6 +108,8 @@ export default function  FileSystemInfo({ path }: { path: string }) {
           - 
         </Text>
       </View>
+
+      { assets && assets.length > 0 ? <Image source={assets[0]} /> : null }
 
       <View style={styles.helpContainer}>
         <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
