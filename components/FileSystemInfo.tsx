@@ -40,11 +40,13 @@ async function testFilesystem() {
     }
 
     getFreeSpace().then(freeDiskStorage => {
-      alert(`freeDiskStorage ${JSON.stringify(freeDiskStorage, null, 2)}`)
+      console.log(`getFreeSpace: freeDiskStorage ${JSON.stringify(freeDiskStorage, null, 2)}`);
+      // alert(`freeDiskStorage ${JSON.stringify(freeDiskStorage, null, 2)}`)
     });
 
     getTotalDiskCapacity().then(totalDiskCapacity => {
-      alert(`totalDiskCapacity ${JSON.stringify(totalDiskCapacity, null, 2)}`)
+      console.log(`getTotalDiskCapacity: totalDiskCapacity ${JSON.stringify(totalDiskCapacity, null, 2)}`);
+      // alert(`totalDiskCapacity ${JSON.stringify(totalDiskCapacity, null, 2)}`)
     });
 
     // downloadAsync (https://docs.expo.dev/versions/latest/sdk/filesystem/#filesystemdownloadasyncuri-fileuri-options)
@@ -53,23 +55,32 @@ async function testFilesystem() {
       FileSystem.documentDirectory + 'small.mp4'
     )
     
-    alert(`App downloaded ${uri || "download failed"}`);
+    // App downloaded, download failed.
+    console.log(`App downloaded ${uri || "download failed"}`);
+    // alert(`App downloaded ${uri || "download failed"}`);
 
     // Get Info Async
-    alert(`GetInfoAsync: ${ JSON.stringify(await FileSystem.getInfoAsync(uri), null, 2) }`);
+    console.log(`GetInfoAsync: ${ JSON.stringify(await FileSystem.getInfoAsync(uri), null, 2) }`);
+    // alert(`GetInfoAsync: ${ JSON.stringify(await FileSystem.getInfoAsync(uri), null, 2) }`);
 
-    alert(`deleteAsync: ${ JSON.stringify(await FileSystem.deleteAsync(uri), null, 2) }`);
+    // Delete Async
+    console.log(`DeleteAsync: ${ JSON.stringify(await FileSystem.deleteAsync(uri), null, 2) }`);
+    // alert(`deleteAsync: ${ JSON.stringify(await FileSystem.deleteAsync(uri), null, 2) }`);
 
     // makeDirectoryAsync (https://docs.expo.dev/versions/latest/sdk/filesystem/#filesystemmakedirectoryasyncfileuri-options)
-    alert(`makeDirectoryAsync: ${ JSON.stringify(await FileSystem.makeDirectoryAsync(uri), null, 2) }`);
+    console.log(`makeDirectoryAsync: ${ JSON.stringify(await FileSystem.makeDirectoryAsync(uri), null, 2) }`);
+    // alert(`makeDirectoryAsync: ${ JSON.stringify(await FileSystem.makeDirectoryAsync(uri), null, 2) }`);
 
     // readDirectoryAsync (https://docs.expo.dev/versions/latest/sdk/filesystem/#filesystemreaddirectoryasyncfileuri)
-    alert(`readDirectoryAsync: ${ JSON.stringify(await FileSystem.readDirectoryAsync(uri), null, 2) }`);
+    console.log(`readDirectoryAsync: ${ JSON.stringify(await FileSystem.readDirectoryAsync(uri), null, 2) }`);
+    // alert(`readDirectoryAsync: ${ JSON.stringify(await FileSystem.readDirectoryAsync(uri), null, 2) }`);
     
     // moveAsync (https://docs.expo.dev/versions/latest/sdk/filesystem/#filesystemmoveasyncoptions)
+    console.log(`moveAsync: ${ JSON.stringify(await FileSystem.moveAsync('file://url/from', 'file://url/to'), null, 2) }`);
     // alert(`moveAsync: ${ JSON.stringify(await FileSystem.moveAsync('file://url/from', 'file://url/to'), null, 2) }`);
 
     // copyAsync (https://docs.expo.dev/versions/latest/sdk/filesystem/#filesystemcopyasyncoptions)
+    console.log(`copyAsync: ${ JSON.stringify(await FileSystem.copyAsync('file://url/from', 'file://url/to'), null, 2) }`);
     // alert(`copyAsync: ${ JSON.stringify(await FileSystem.copyAsync('file://url/from', 'file://url/to'), null, 2) }`);
     
 }
@@ -105,11 +116,14 @@ export default function  FileSystemInfo({ path }: { path: string }) {
           lightColor="rgba(0,0,0,0.8)"
           darkColor="rgba(255,255,255,0.8)">
           - Download file
-          - 
         </Text>
       </View>
 
-      { assets && assets.length > 0 ? <Image source={assets[0]} /> : null }
+      { 
+        assets && assets.length > 0 ? 
+          <Image source={assets[0]} /> : 
+          null
+      }
 
       <View style={styles.helpContainer}>
         <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
